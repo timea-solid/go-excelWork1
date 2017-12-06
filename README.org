@@ -1,0 +1,9 @@
+* uses:
+	"fmt"
+	"github.com/tealeg/xlsx"
+	"os"
+
+** Introduction
+- xlsx is used to read a Excel file and its content
+- the main func reads a dedicated excel file and concatenates column 12,18 and 20 and writes this content in a file
+- this is donw for each row
