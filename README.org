@@ -4,6 +4,6 @@
 	"os"
 
 ** Introduction
-- xlsx is used to read a Excel file and its content
-- the main func reads a dedicated excel file and concatenates column 12,18 and 20 and writes this content in a file
-- this is donw for each row
+- xlsx is used to read an Excel file and its content
+- the main func reads a dedicated Excel file and concatenates column 12,18 and 20 and writes this content in a file
+- this is done for each row
