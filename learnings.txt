@@ -1,0 +1,17 @@
+	if len(column) == 0 {
+		fmt.Printf("we will use the first column\n")
+		var column [1]string
+		column[0] = "0"
+		
+	}
+	-> creates a new column variable in the scope of if
+	
+	
+	arrays start with 0
+	
+	rows in excel start with 0
+	
+	sheets in an excel start with 0
+	
+	column start with 0 
+	

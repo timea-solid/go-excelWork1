@@ -14,43 +14,56 @@ func check(e error) {
     }
 }
 
-//example call should be excelWork -excelFile=file path -outputFolder=folder path - sheetToUse =sheet number 12 18 20
+//example call should be go-excelWork1 -excelFile=filePath -outputFolder=folderPath - sheetToUse=sheetNO 12 18 20
+//12 18 20 are optional and represent the column to concatenate
+
 func main() {
-	excelFile := flag.String("excelFile", "example.xlsx", "Excel file name with path")
-	outputFolder := flag.String("outputFolder", "C:\\output\text\\", "Path to outputfolder with trailing folder file separator")
-	sheetToUse := flag.Int("sheetToUse", 1, "the sheet number to use, 1 for first sheet")
-	column := flag.Args()
+	excelFile := flag.String("excelFile", "testdocs/excel.xlsx", "Excel file name with its path")
+	outputFolder := flag.String("outputFolder", "testdocs/results/", "Path to output folder with trailing folder file separator")
+	sheetToUse := flag.Int("sheetToUse", 0, "the sheet number to use, 0 for first sheet")
 	
 	flag.Parse()
+	
+	column := flag.Args()	
 	
 	xlsxFile, err := xlsx.OpenFile(*excelFile)
 	check(err)
 
+	if *sheetToUse == 0 {
+		fmt.Printf("we will use the first sheet\n")
+	}
+	if len(column) == 0 {
+		fmt.Printf("we will use the first column\n")
+	}
+	
 	sheet := xlsxFile.Sheets[*sheetToUse]
-	fmt.Printf("here2")
 	for i, row := range sheet.Rows {
-	fmt.Printf("here3")
-		if i >= 2 {
+	//TODO make skipping first row optional
+		if i >= 1 {
+		//TODO try to make code more compact by not needing the next if 
 			if len(column) > 0 {
+				//TODO only create a file if the cell[s] contain data
+				fileName := fmt.Sprintf("%s%d%s",*outputFolder, (i+1), ".txt")
+				fmt.Printf("%s\n", fileName)
+				f, err := os.Create(fileName)
+				check(err)
 				for _, columnNo := range column {
-					fileName := fmt.Sprintf("%s%d%s",*outputFolder, i, ".txt")
-					fmt.Printf("%s", fileName)
-					f, err := os.Create(fileName)
-					check(err)
 					number, err := strconv.Atoi(columnNo)
 					check(err)
 					value := row.Cells[number].String()
 					f.WriteString(value)
 					f.WriteString("\n")
 				}
+				f.Sync()
 			} else {
-				fileName := fmt.Sprintf("%s%d%s",*outputFolder, i, ".txt")
-				fmt.Printf("%s", fileName)
+				fileName := fmt.Sprintf("%s%d%s",*outputFolder, (i+1), ".txt")
+				fmt.Printf("first column: %s\n", fileName)
 				f, err := os.Create(fileName)
 				check(err)
-				value := row.Cells[1].String()
+				value := row.Cells[0].String()
 				f.WriteString(value)
 				f.WriteString("\n")
+				f.Sync()
 			}
 		}
 	}
