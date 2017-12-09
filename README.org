@@ -10,5 +10,5 @@
 - the main func reads a dedicated Excel file and concatenates some column and writes this content in a file
 - this is done for each row
 - example call: go-excelWork1 -excelFile=filePath -outputFolder=folderPath - sheetToUse=sheetNO 12 18 20
--- 12 18 20 are the columns to concatenate default is first column
--- default sheet is first sheet
+- 12 18 20 are the columns to concatenate default is first column
+- default sheet is first sheet
