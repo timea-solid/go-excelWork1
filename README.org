@@ -1,9 +1,14 @@
 * uses:
 	"fmt"
+	
 	"github.com/tealeg/xlsx"
+	
 	"os"
 
 ** Introduction
 - xlsx is used to read an Excel file and its content
-- the main func reads a dedicated Excel file and concatenates column 12,18 and 20 and writes this content in a file
+- the main func reads a dedicated Excel file and concatenates some column and writes this content in a file
 - this is done for each row
+- example call: go-excelWork1 -excelFile=filePath -outputFolder=folderPath - sheetToUse=sheetNO 12 18 20
+-- 12 18 20 are the columns to concatenate default is first column
+-- default sheet is first sheet
