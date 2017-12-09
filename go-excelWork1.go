@@ -32,16 +32,16 @@ func main() {
 	if *sheetToUse == 0 {
 		fmt.Printf("we will use the first sheet\n")
 	}
+	
 	if len(column) == 0 {
 		fmt.Printf("we will use the first column\n")
+		column = append(column, "0")
 	}
 	
 	sheet := xlsxFile.Sheets[*sheetToUse]
 	for i, row := range sheet.Rows {
 	//TODO make skipping first row optional
 		if i >= 1 {
-		//TODO try to make code more compact by not needing the next if 
-			if len(column) > 0 {
 				//TODO only create a file if the cell[s] contain data
 				fileName := fmt.Sprintf("%s%d%s",*outputFolder, (i+1), ".txt")
 				fmt.Printf("%s\n", fileName)
@@ -55,16 +55,6 @@ func main() {
 					f.WriteString("\n")
 				}
 				f.Sync()
-			} else {
-				fileName := fmt.Sprintf("%s%d%s",*outputFolder, (i+1), ".txt")
-				fmt.Printf("first column: %s\n", fileName)
-				f, err := os.Create(fileName)
-				check(err)
-				value := row.Cells[0].String()
-				f.WriteString(value)
-				f.WriteString("\n")
-				f.Sync()
-			}
 		}
 	}
 }

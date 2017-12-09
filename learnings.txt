@@ -6,3 +6,6 @@
 	
 	column start with 0 
 	
+	column = append(column, "0") 
+	this is how you allocate space in an empty buffer
+	
