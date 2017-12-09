@@ -42,19 +42,19 @@ func main() {
 	for i, row := range sheet.Rows {
 	//TODO make skipping first row optional
 		if i >= 1 {
-				//TODO only create a file if the cell[s] contain data
-				fileName := fmt.Sprintf("%s%d%s",*outputFolder, (i+1), ".txt")
-				fmt.Printf("%s\n", fileName)
-				f, err := os.Create(fileName)
+			//TODO only create a file if the cell[s] contain data
+			fileName := fmt.Sprintf("%s%d%s",*outputFolder, (i+1), ".txt")
+			fmt.Printf("%s\n", fileName)
+			f, err := os.Create(fileName)
+			check(err)
+			for _, columnNo := range column {
+				number, err := strconv.Atoi(columnNo)
 				check(err)
-				for _, columnNo := range column {
-					number, err := strconv.Atoi(columnNo)
-					check(err)
-					value := row.Cells[number].String()
-					f.WriteString(value)
-					f.WriteString("\n")
-				}
-				f.Sync()
+				value := row.Cells[number].String()
+				f.WriteString(value)
+				f.WriteString("\n")
+			}
+			f.Sync()
 		}
 	}
 }
